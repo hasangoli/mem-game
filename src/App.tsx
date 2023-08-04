@@ -2,20 +2,20 @@ import { SetStateAction, useEffect, useState } from 'react';
 import Card from './components/Card';
 import shuffle from './utils/shuffle';
 
-type CardProps = {
+type CardPropsType = {
   image: string;
   id: number;
   matched?: boolean;
 };
 
 const App = () => {
-  const [cards, setCards] = useState<CardProps[]>(shuffle);
-  const [pickOne, setPickOne] = useState<CardProps | null>(null);
-  const [pickTwo, setPickTwo] = useState<CardProps | null>(null);
+  const [cards, setCards] = useState<CardPropsType[]>(shuffle);
+  const [pickOne, setPickOne] = useState<CardPropsType | null>(null);
+  const [pickTwo, setPickTwo] = useState<CardPropsType | null>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [wins, setWins] = useState<number>(0);
 
-  const handleClick = (card: SetStateAction<CardProps | null>) => {
+  const handleClick = (card: SetStateAction<CardPropsType | null>) => {
     if (!disabled) pickOne ? setPickTwo(card) : setPickOne(card);
   };
 
@@ -26,7 +26,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    let pickTimer: any;
+    let pickTimer: NodeJS.Timeout;
 
     if (pickOne && pickTwo) {
       if (pickOne?.image === pickTwo?.image) {
